@@ -1,14 +1,16 @@
 <!-- html組み込みVer. -->
 <?php
 
-// 2番目の投稿
-class second_get_post
+// 2番目の投稿クラス管理
+class Second_get_post
 {
-    public function get_post_func()
+    public $num;
+
+    public function __construct($num) //メソッドを呼び出す時まっさきに呼び出されるやつのはず
     {
         $second_new_post = get_posts(array(
-            'numberposts' => 1,
-            'offset' => 1,
+            'numberposts' => 1, // 取得件数をさしている。元々の値は1
+            'offset' => $num, // 何番目から取得するのか。元々の値は1
         ));
         foreach ($second_new_post as $post) :
             setup_postdata($post);
@@ -16,5 +18,7 @@ class second_get_post
         wp_reset_postdata();
     }
 }
+$nth_post = new Second_get_post(); // こいつに引数を渡しn番目の投稿が表示されるよう簡単に再利用したい
 
-$second_post = new second_get_post();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
