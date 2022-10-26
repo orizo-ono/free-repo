@@ -22,3 +22,17 @@ $nth_post = new Second_get_post(); // こいつに引数を渡しn番目の投�
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function get_post($num) //メソッドを呼び出す時まっさきに呼び出されるやつのはず
+{
+    $second_new_post = get_posts(array(
+        'numberposts' => 1,
+        'offset' => $num, // 何番目から取得するのか。元々の値は1
+    ));
+    foreach ($second_new_post as $post) :
+        setup_postdata($post); // 一つの投稿オブジェクトとして呼び出される
+    endforeach;
+    wp_reset_postdata(); // 仕様上必須っぽい
+}
+add_shortcode('nth_get_post', 'get_post');
